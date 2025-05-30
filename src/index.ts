@@ -1,6 +1,6 @@
 type Task = {
         title: string,
-        completed: false,
+        completed: boolean,
         createdAt: Date,
     }
 
@@ -8,7 +8,7 @@ const list = document.querySelector<HTMLUListElement>('#list'); //only use for q
 const form = document.querySelector<HTMLFormElement>('#new-task-form');
 const input = document.querySelector<HTMLInputElement>('#new-task-title');
 
-const tasks: Task[] = loadTasks()
+const tasks: Task[] = loadTasks()  //array
 tasks.forEach(addListItem)
 
 form?.addEventListener('submit', (e)=>{
@@ -27,16 +27,12 @@ form?.addEventListener('submit', (e)=>{
     input.value = ''
 });
 
-function addListItem(task:{
-    title: string,
-    completed: boolean,
-    createdAt: Date
-}){
+function addListItem(task: Task){
     const item = document.createElement('li');
     const label = document.createElement('label');
     const  checkbox = document.createElement("input");
     checkbox.addEventListener('change', ()=>{
-        task.completed = checkbox.checked
+    task.completed = checkbox.checked
 
         saveTask()
     })
