@@ -18,9 +18,14 @@ const menu: Pizza[] = [
     {id:nextPizzaId++,  name:"pork", price: 12},
     {id:nextPizzaId++, name:"beans", price: 23}
 ]
-
- function addNewPizza(pizzaObj: Pizza){
-    menu.push(pizzaObj)
+// utility type 
+ function addNewPizza(pizzaObj: Omit<Pizza, "id">): Pizza{
+const newPizza: Pizza = {
+    id: nextPizzaId++,
+    ...pizzaObj
+}
+    menu.push(newPizza)
+    return newPizza
  }
 
  function placeOrder(pizzaName: string){
@@ -56,10 +61,10 @@ const menu: Pizza[] = [
         throw new TypeError('undefined')
     }
  }
-
- addNewPizza({id:nextPizzaId++, name: "meat", price: 23}),menu
- addNewPizza({id:nextPizzaId++,name: "kales", price: 10}),
- addNewPizza({ id: nextPizzaId++,name: "cabbage", price: 15}),
- addNewPizza({id:nextPizzaId++, name: "managu", price: 12})
+  
+ addNewPizza({name: "meat", price: 23}),menu
+ addNewPizza({name: "kales", price: 10}),
+ addNewPizza({name: "cabbage", price: 15}),
+ addNewPizza({name: "managu", price: 12})
 
  console.log(menu)
