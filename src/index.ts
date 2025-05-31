@@ -8,16 +8,16 @@ type Pizza = {
     name: string
     price: number
 }
+ let  cashInRegister = 100
+ let nextOrderId =  1
+ let nextPizzaId = 1
+ const orderQueue: Order[] = [];
 
 const menu: Pizza[] = [
-    {id: 1,name:"chicken", price: 8},
-    {id:2,  name:"pork", price: 12},
-    {id:3, name:"beans", price: 23}
+    {id: nextPizzaId++ ,name:"chicken", price: 8},
+    {id:nextPizzaId++,  name:"pork", price: 12},
+    {id:nextPizzaId++, name:"beans", price: 23}
 ]
-
-let  cashInRegister = 100
- let nextOrderId =  1
- const orderQueue: Order[] = [];
 
  function addNewPizza(pizzaObj: Pizza){
     menu.push(pizzaObj)
@@ -46,17 +46,20 @@ let  cashInRegister = 100
  }
 
 //  type narrowing 
- function getPizzaDetails(identifier: string| number){
+ function getPizzaDetails(identifier: string| number): Pizza| undefined{
     if(typeof identifier=== "string"){
         return menu.find(pizza =>pizza.name.toLocaleLowerCase()=== identifier.toLocaleLowerCase())
-    }else{
+    }else if(typeof identifier === "number"){
         return menu.find(pizza =>pizza.id=== identifier)
+    }
+    else{
+        throw new TypeError('undefined')
     }
  }
 
- addNewPizza({id:12, name: "meat", price: 23}),menu
- addNewPizza({id:25,name: "kales", price: 10}),
- addNewPizza({ id:33,name: "cabbage", price: 15}),
- addNewPizza({id:35, name: "managu", price: 12})
+ addNewPizza({id:nextPizzaId++, name: "meat", price: 23}),menu
+ addNewPizza({id:nextPizzaId++,name: "kales", price: 10}),
+ addNewPizza({ id: nextPizzaId++,name: "cabbage", price: 15}),
+ addNewPizza({id:nextPizzaId++, name: "managu", price: 12})
 
  console.log(menu)
